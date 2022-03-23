@@ -1,0 +1,33 @@
+version: "2"
+services:
+  wordpress:
+    image: wordpress:latest
+    container_name: pj10_wordpress
+    volumes:
+      - "$PWD:/var/www/html"
+      - "$PWD/.docker/backup:/tmp/backup"
+      - "$PWD/.docker/log:/tmp/log"
+    ports:
+      - 8081:80
+    depends_on:
+      - db
+    environment:
+      WORDPRESS_DB_HOST: "db:3306"
+    networks:
+      - pj10_network
+    env_file: .env
+  
+  db:
+    image: mysql:5.7
+    container_name: test_mysql
+    volumes:
+      - "db-data:/var/lib/mysql"
+    networks:
+      - pj10_network
+    env_file: .env
+
+volumes:
+  db-data:
+
+networks:
+  pj10_network:
