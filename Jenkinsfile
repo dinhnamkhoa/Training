@@ -7,7 +7,7 @@ pipeline {
     }
 
     tools { 
-        maven 'maven3' 
+        maven 'mvn' 
     }
 
     options {
