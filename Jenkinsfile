@@ -18,7 +18,7 @@ pipeline {
     }
  
     environment {
-        APP_NAME = "DCUBE_APP",
+        APP_NAME = "DCUBE_APP"
         APP_ENV  = "DEV"
     }
  
