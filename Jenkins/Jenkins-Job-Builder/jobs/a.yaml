@@ -1,0 +1,50 @@
+- project:
+    name: 123-Temp
+    jobs:
+      - '123-{num}':
+          num: 1
+      - '123-{num}':
+          num: 2
+      - '123-{num}':
+          num: 3
+
+- job-template:
+    disabled_var:
+    command: df
+    type: freestyle
+    scm:
+      - 123
+    builders:
+      - shell: |
+          TIME=`date`
+          echo "{num} It is $TIME"
+          echo "Job-Name 123-{num}"
+    parameters:
+      - string:
+          name: BRANCH
+          default: '{branch|master}'
+    name: '123-{num}'
+    id: '123-{num}'
+    project-type: freestyle
+    defaults: global
+    description: 'Do not edit this job through the web!'
+    disabled: false
+    display-name: 'Dinh Nam Khoa name {num}'
+    concurrent: true
+    quiet-period: 5
+    block-downstream: false
+    block-upstream: false
+    retry-count: 3
+    build-discarder:
+      daysToKeep: 3
+      numToKeep: 20
+      artifactDaysToKeep: -1
+      artifactNumToKeep: -1
+
+- scm:
+    name: 123
+    scm:
+      - git:
+          url: https://github.com/etowett/apisim.git
+          branches:
+            - main

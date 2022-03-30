@@ -1,0 +1,50 @@
+- project:
+    name: Test-Job-Template-Temp
+    jobs:
+      - 'Test-Job-Template-{num}':
+          num: 1
+      - 'Test-Job-Template-{num}':
+          num: 2
+      - 'Test-Job-Template-{num}':
+          num: 3
+
+- job-template:
+    disabled_var:
+    command: df
+    type: freestyle
+    scm:
+      - Test-Job-Template
+    builders:
+      - shell: |
+          TIME=`date`
+          echo "{num} It is $TIME"
+          echo "Job-Name Test-Job-Template-{num}"
+    parameters:
+      - string:
+          name: BRANCH
+          default: '{branch|master}'
+    name: 'Test-Job-Template-{num}'
+    id: 'Test-Job-Template-{num}'
+    project-type: freestyle
+    defaults: global
+    description: 'Do not edit this job through the web!'
+    disabled: false
+    display-name: 'Fancy Test Job name {num}'
+    concurrent: true
+    quiet-period: 5
+    block-downstream: false
+    block-upstream: false
+    retry-count: 3
+    build-discarder:
+      daysToKeep: 3
+      numToKeep: 20
+      artifactDaysToKeep: -1
+      artifactNumToKeep: -1
+
+- scm:
+    name: Test-Job-Template
+    scm:
+      - git:
+          url: https://github.com/etowett/apisim.git
+          branches:
+            - main
