@@ -1,14 +1,15 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: static-web
+  name: mongodb
   labels:
     role: myrole
 spec:
   containers:
-    - name: web
-      image: public.ecr.aws/nginx/nginx
+    - name: database
+      image: mongo
       ports:
         - name: web
           containerPort: 80
           protocol: TCP
+  
